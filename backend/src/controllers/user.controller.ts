@@ -4,7 +4,10 @@ import bcrypt from "bcrypt";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
 import { AuthRequest } from "../middlewares/auth.middleware";
-const client = new PrismaClient();
+
+
+
+export const client = new PrismaClient();
 
 // Define Zod Schema for Signup
 const signupSchema = z
@@ -54,7 +57,7 @@ export const signup = async (req: Request, res: Response) => {
         const hashPass = await bcrypt.hash(password, 11);
 
         // Create new user
-        await client.user.create({
+        const user = await client.user.create({
             data: {
                 username,
                 password: hashPass,
@@ -63,6 +66,15 @@ export const signup = async (req: Request, res: Response) => {
                 email,
             },
         });
+
+        const balance = Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000
+
+        await client.account.create({
+            data: {
+                userId: user.id,
+                amount: balance
+            }
+        })
 
         res.status(201).json({
             success: true,
@@ -202,3 +214,60 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
         return;
     }
 };
+
+export const getUsers = async (req: AuthRequest, res: Response) => {
+    try{
+        const filter = (req.query.filter as string) || "";
+
+        const findUsers = await client.user.findMany({
+            where:{
+                OR:[
+                    {
+                        username: {
+                            contains: filter,
+                            mode : "insensitive"
+                        }
+                    },
+                    {
+                        firstName: {
+                            contains: filter,
+                            mode: "insensitive"
+                        }
+                    },
+                    {
+                        lastName: {
+                            contains: filter,
+                            mode: "insensitive"
+                        }
+                    }
+                ]
+            }
+        })
+        if(!findUsers){
+            res.status(404).json({
+                success: false,
+                message: "No user found"
+            })
+            return;
+        }
+        res.status(200).json({
+            success: true,
+            message: "Users Found",
+            user: findUsers.map((user) => ({
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                id: user.id
+        }))
+        })
+        return;
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        })
+        return;
+    }
+}

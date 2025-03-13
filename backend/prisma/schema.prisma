@@ -14,5 +14,13 @@ model User {
   firstName String    
   lastName  String?
   phoneNo   Int?
-  password  String    @db.VarChar(20)    
+  password  String    
+  account   Account?      
+}
+
+model Account {
+  id        Int     @default(autoincrement()) @id
+  amount    Int     
+  userId    Int     @unique
+  user      User    @relation(fields: [userId], references: [id])
 }
