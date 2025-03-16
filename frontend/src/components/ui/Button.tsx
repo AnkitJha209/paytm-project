@@ -1,4 +1,4 @@
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     name: string,
     onClick: () => void,
     variant: "primary" | "secondary"
