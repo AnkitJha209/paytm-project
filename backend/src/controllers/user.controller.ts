@@ -127,7 +127,7 @@ export const signin = async (req: Request, res: Response) => {
             const payload = {
                 id: userExist.id,
             };
-            const token = jwt.sign(payload, "JWT_SECRET");
+            const token = jwt.sign(payload, "JWT_SECRET", {expiresIn: '3h'});
             res.status(200).json({
                 success: true,
                 message: "Login Successfully",
@@ -248,6 +248,13 @@ export const getUsers = async (req: AuthRequest, res: Response) => {
                 success: false,
                 message: "No user found"
             })
+            return;
+        }
+        if (findUsers.length === 0) { 
+            res.status(404).json({
+                success: false,
+                message: "No users found"
+            });
             return;
         }
         res.status(200).json({
