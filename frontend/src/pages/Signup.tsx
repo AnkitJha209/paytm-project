@@ -18,7 +18,7 @@ export const Signup  = ( ) => {
     const formData = new FormData(e.currentTarget);
     
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/auth/signup',
+      const response = await axios.post('http://localhost:8080/api/v1/auth/signup',
         {firstName: formData.get('firstName') as string,
             lastName: formData.get('lastName') as string,
             email: formData.get('email') as string,
@@ -28,7 +28,7 @@ export const Signup  = ( ) => {
         }
       );
       console.log(response)
-      navigate('/');
+      navigate('/signin');
     } catch (err: any) {
       setError(err.response?.data?.message || 'Something went wrong');
     } finally {

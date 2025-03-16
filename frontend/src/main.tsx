@@ -6,12 +6,13 @@ import { Signup } from './pages/Signup.tsx'
 import { Dashboard } from './pages/Dashboard.tsx'
 import { store } from './redux/store.ts' 
 import { Provider } from 'react-redux'
+import { Signin } from './pages/Signin.tsx'
 
 const route = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<App/>} >
     <Route path='signup'  element={<Signup/>}/>
-    {/* <Route path='signin'  element={<Signin/>}/>  */}
-    <Route path='dashboard'  element={<Dashboard/>}/> 
+    <Route path='signin'  element={<Signin/>}/> 
+    <Route path=''  element={<Dashboard/>}/> 
     {/* <Route path='send'  element={<SendMoney/>}/>  */}
   </Route>
 ))
