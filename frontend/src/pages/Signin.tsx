@@ -5,7 +5,7 @@ import { Input } from "../components/ui/Input"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { setToken } from "../redux/authSlice"
+import { setToken, setUser } from "../redux/authSlice"
 
 export const Signin = () => {
     const navigate = useNavigate();
@@ -26,6 +26,7 @@ export const Signin = () => {
           password: formData.get('password') as string,
         });
         dispatch(setToken(response.data.token))
+        dispatch(setUser(response.data.id))
         navigate('/dashboard');
       } catch (err: any) {
         setError(err.response?.data?.message || 'Invalid credentials');

@@ -18,7 +18,9 @@ export const Users = () => {
     const {token} = useSelector((state: RootState) => state.auth)
         const [input, setInput]= useState('')
         const [users, setUser] = useState<User[]>([])
+        const {id} = useSelector((state: RootState) => state.auth)
         const navigate = useNavigate()
+        const filteredUsers = users.filter(user => user.id !== id);
     useEffect(()=> {
         if (!token) return;
         const fetchUser = async () => {
@@ -37,7 +39,7 @@ export const Users = () => {
                 <Input placeholder="Search users..." onChange={(e)=> setInput(e.target.value)}/>
             </div>
             {
-                users.map(user => ( 
+                filteredUsers.map(user => ( 
                     <Card className="text-black flex w-full justify-between items-center  h-[70px] mt-5" key={user.id}>
                         <div>{user.username.toUpperCase()}</div>
                         <div><Button variant="primary" name='Send Money' onClick={() => navigate("/send-money?id=" + user.id + "&name=" + user.firstName)}/></div>

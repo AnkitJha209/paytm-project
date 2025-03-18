@@ -13,7 +13,7 @@ export const Dashboard = () => {
             <Link to={'/sigin'}><Button variant="secondary" name='LogIn' /></Link>
         </div>
     }
-    return <div className="bg-gradient-to-br text-white flex flex-col p-10 to-blue-900 from-purple-800 w-full h-screen">
+    return <div className="bg-gradient-to-br text-white flex flex-col p-10 to-blue-900 from-purple-800 w-full min-h-screen">
         <MyPortfolio/>
         <Users/>
     </div>

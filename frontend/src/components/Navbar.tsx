@@ -16,10 +16,13 @@ export const Navbar = () => {
             {
                 token === null ? <div className="flex gap-5"><Button name="Login" onClick={()=> (navigate('signin'))} variant={'primary'}/>
                 <Button name="Sign Up" onClick={()=> navigate('signup')} variant={'secondary'}/>
-                </div>: <div>
+                </div>: <div className="flex gap-5">
+                <Button name='Dashboard' onClick={()=> {
+                    navigate('/dashboard')
+                }} variant="secondary"/>
                 <Button name='Log Out' onClick={()=> {
                     dispatch(setLogOut())
-                    navigate('signin')
+                    navigate('/signin')
             }} variant="secondary"/>
                 </div> 
             }
