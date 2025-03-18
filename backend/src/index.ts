@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 const corsOptions = {
-    origin: ["http://localhost:5173","https://paytm-project-ruby.vercel.app/signin"],
+    origin: ["http://localhost:5173","https://paytm-project-ruby.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
