@@ -10,7 +10,7 @@ export const Navbar = () => {
     const navigate = useNavigate()
     return <nav className="bg-gray-900 py-4 px-5 text-white flex justify-between items-center">
         <div className="font-bold text-2xl bg-gradient-to-bl to-blue-400 via-purple-500 from-white bg-clip-text text-transparent">
-            PayTm
+            PayTM
         </div>
         <div>
             {

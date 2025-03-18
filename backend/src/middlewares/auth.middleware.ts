@@ -12,7 +12,6 @@ export const verifyToken = (
 ) => {
     try {
         const token = req.header("Authorization")?.replace("Bearer ", "")
-        console.log(token)
         if (!token) {
             res.status(401).json({
                 success: false,

@@ -21,12 +21,12 @@ export const Signin = () => {
       const formData = new FormData(e.currentTarget);
       
       try {
-        const response = await axios.post('http://localhost:8080/api/v1/auth/signin',{
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signin`,{
           email: formData.get('email') as string,
           password: formData.get('password') as string,
         });
         dispatch(setToken(response.data.token))
-        navigate('/');
+        navigate('/dashboard');
       } catch (err: any) {
         setError(err.response?.data?.message || 'Invalid credentials');
       } finally {

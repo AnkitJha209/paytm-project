@@ -18,7 +18,7 @@ export const Signup  = ( ) => {
     const formData = new FormData(e.currentTarget);
     
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/auth/signup',
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
         {firstName: formData.get('firstName') as string,
             lastName: formData.get('lastName') as string,
             email: formData.get('email') as string,

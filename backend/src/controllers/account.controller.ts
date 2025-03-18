@@ -54,6 +54,7 @@ export const transferMoney = async (req: AuthRequest, res: Response) => {
             })
             return;
         }
+        const toNum = Number(to)
 
         const balance = await client.account.findFirst({
             where: {
@@ -76,7 +77,7 @@ export const transferMoney = async (req: AuthRequest, res: Response) => {
         }
         const toUser = await client.account.findFirst({
             where: {
-                userId: to
+                userId: toNum
             }
         })
         if(!toUser){
@@ -97,7 +98,7 @@ export const transferMoney = async (req: AuthRequest, res: Response) => {
             }),
             await client.account.update({
                 where: {
-                    id: to
+                    id: toNum
                 },
                 data: {
                     amount: {increment: amount}
